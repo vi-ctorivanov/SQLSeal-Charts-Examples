@@ -1,0 +1,21 @@
+Source,Monthly Cost,Yearly Cost,Category
+Rent,1000,12000,Housing
+Utilities,50,600,Housing
+Maintenance,25,240,Housing
+Internet,20,300,Housing
+Parking,40,480,Housing
+Insurance,15,180,Housing
+Phone,30,360,Services
+Subscriptions,30,360,Services
+Health,35,420,Services
+Transport,45,540,Services
+Gas,45,540,Services
+Car Insurance,50,600,Services
+Parking,40,480,Services
+Food,400,4800,Consumables
+Restaurants,250,3000,Consumables
+Health,50,600,Consumables
+Clothes,100,1200,Desireables
+Technology,100,1200,Desireables
+Travel,200,2400,Desireables
+Activities,100,1200,Desireables
