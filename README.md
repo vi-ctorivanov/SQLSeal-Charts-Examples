@@ -15,11 +15,11 @@ Some charts differ only slightly, and some use advanced mode to handle more uniq
 
 I hope you find this example vault helpful!
 
-![[1.png]]
+![finance bar chart](/Images/1.png)
 
-![[2.png]]
+![calendar chart](Images/2.png)
 
-![[3.png]]
+![productivity chart](Images/3.png)
 
 ## Notes
 
