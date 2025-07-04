@@ -14,8 +14,6 @@ This vault focuses on precisely that pipeline, and includes:
 Some charts differ only slightly, and some use advanced mode to handle more unique data formatting requirements. They are all styled in a relatively consistent way that work for my needs specifically, please feel free to play around and make them suit your own tastes and requirements.
 
 I hope you find this example vault helpful!
-
----
 ## Notes
 
 This vault has last been validated as working on: `July 4th, 2025`.
