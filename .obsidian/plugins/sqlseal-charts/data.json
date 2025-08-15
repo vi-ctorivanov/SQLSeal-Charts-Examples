@@ -1,0 +1,64 @@
+{
+  "globalConfigs": [
+    {
+      "name": "_standardGrid",
+      "config": "{\n  \"show\": false,\n  \"left\": 50,\n  \"right\": 50,\n  \"top\": 50,\n  \"bottom\": 50\n}"
+    },
+    {
+      "name": "_dotLegend",
+      "config": "{\n  \"show\": true,\n  \"icon\": \"circle\",\n  \"itemHeight\": 5,\n  \"itemWidth\": 5,\n  \"inactiveColor\": \"#363636\",\n  \"inactiveBorderWidth\": 0,\n  \"left\": 18,\n  \"top\": 10,\n  \"itemGap\": 10,\n  \"padding\": 5,\n  \"textStyle\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 0,\n    \"color\": \"#646464\",\n    \"lineHeight\": 0\n  },\n  \"itemStyle\": {\n    \"borderWidth\": 0\n  }\n}"
+    },
+    {
+      "name": "_crossTooltip",
+      "config": "{\n  \"show\": true,\n  \"padding\": 5,\n  \"backgroundColor\": \"#242424\",\n  \"borderColor\": \"transparent\",\n  \"extraCssText\": \"box-shadow: none;\",\n  \"textStyle\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 12,\n    \"color\": \"#DADADA\"\n  },\n  \"axisPointer\": {\n    \"type\": \"cross\",\n    \"snap\": true,\n    \"crossStyle\": {\n      \"color\": \"#646464\"\n    },\n    \"label\": {\n      \"fontFamily\": \"Roboto\",\n      \"fontSize\": 12,\n      \"color\": \"#DADADA\",\n      \"backgroundColor\": \"#242424\",\n      \"padding\": 5\n    }\n  }\n}"
+    },
+    {
+      "name": "_cartesianX",
+      "config": "{\n  \"type\": \"category\",\n  \"axisLine\": {\n    \"show\": false\n  },\n  \"axisTick\": {\n    \"show\": false\n  },\n  \"splitLine\": {\n    \"show\": false\n  },\n  \"axisLabel\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 12,\n    \"color\": \"#646464\",\n    \"rotate\": 90,\n    \"width\": 35,\n    \"overflow\": \"truncate\",\n    \"ellipsis\": \"…\"\n  }\n}"
+    },
+    {
+      "name": "_cartesianY",
+      "config": "{\n  \"type\": \"value\",\n  \"axisLine\": {\n    \"show\": false\n  },\n  \"axisTick\": {\n    \"show\": false\n  },\n  \"splitLine\": {\n    \"show\": false\n  },\n  \"axisLabel\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 12,\n    \"color\": \"#646464\",\n    \"width\": 35,\n    \"overflow\": \"truncate\",\n    \"ellipsis\": \"…\"\n  }\n}"
+    },
+    {
+      "name": "_lineSeries",
+      "config": "{\n  \"type\": \"line\",\n  \"symbol\": \"circle\",\n  \"smooth\": 0.2,\n  \"lineStyle\": {\n    \"width\": 1\n  }\n}"
+    },
+    {
+      "name": "_barSeries",
+      "config": "{\n  \"type\": \"bar\",\n  \"stack\": \"x\",\n  \"itemStyle\": {\n    \"borderRadius\": 1\n  }\n}"
+    },
+    {
+      "name": "_calendarItemStyle",
+      "config": "{\n  \"color\": \"#242424\",\n  \"borderColor\": \"#1E1E1E\",\n  \"borderWidth\": 3,\n  \"borderCap\": \"round\",\n  \"borderJoin\": \"round\"\n}"
+    },
+    {
+      "name": "_color1",
+      "config": "\"#FCB97D\""
+    },
+    {
+      "name": "_color2",
+      "config": "\"#86BA90\""
+    },
+    {
+      "name": "_color3",
+      "config": "\"#778DA9\""
+    },
+    {
+      "name": "_color4",
+      "config": "\"#DD7373\""
+    },
+    {
+      "name": "_color5",
+      "config": "\"#584485\""
+    },
+    {
+      "name": "_color6",
+      "config": "\"#2B2D42\""
+    },
+    {
+      "name": "_neutralColor",
+      "config": "\"#272D2D\""
+    }
+  ]
+}

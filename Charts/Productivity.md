@@ -1,105 +1,18 @@
 
 ```sqlseal
-TABLE productivity = file(Productivity.csv)
-
-ADVANCED MODE
-CHART
-
-const seriesItem = {
-	type: 'line',
-	symbol: 'circle',
-	smooth: 0.2,
-	lineStyle: { width: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-	
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373', '#272D2D'],
-	
+CHART {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color1, _color2, _color3, _color4, _neutralColor],
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		{
-			type: 'bar',
-			itemStyle: { borderRadius: 1 }
-		}
+		_lineSeries,
+		_lineSeries,
+		_lineSeries,
+		_lineSeries,
+		_barSeries
 	]
 }
 
@@ -117,99 +30,18 @@ ORDER BY Month ASC
 ^productivity
 
 ```sqlseal
-ADVANCED MODE
-CHART
-
-const seriesItem = {
-	type: 'bar',
-	stack: 'x',
-	itemStyle: { borderRadius: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373'],
-	
+CHART {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color1, _color2, _color3, _color4, _neutralColor],
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries
 	]
 }
 
@@ -227,180 +59,83 @@ ORDER BY Date ASC
 ^local-productivity
 
 ```sqlseal
-CHART {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
+ADVANCED MODE
+CHART
 
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373'],
-	
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
 	series: [
 		{
 			//design
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#FCB97D' },
-			lineStyle: { color: '#FCB97D', width: 1 },
+			itemStyle: { color: _color1 },
+			lineStyle: { color: _color1, width: 1 },
 		},
 		{
 			//linguistics
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#FCB97D' },
-			lineStyle: { color: '#FCB97D', width: 1, type: 'dashed' }
+			itemStyle: { color: _color1 },
+			lineStyle: { color: _color1, width: 1, type: 'dashed' }
 		},
 		{
 			//research
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#FCB97D' },
-			lineStyle: { color: '#FCB97D', width: 1, type: 'dotted' }
+			itemStyle: { color: _color1 },
+			lineStyle: { color: _color1, width: 1, type: 'dotted' }
 		},
 		{
 			//writing
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#FCB97D' },
-			lineStyle: { color: '#FCB97D', width: 1, type: 'dashed', dashOffset: 0.3 }
+			itemStyle: { color: _color1 },
+			lineStyle: { color: _color1, width: 1, type: 'dashed', dashOffset: 0.3 }
 		},
-		
 		{
 			//composition
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#272D2D', width: 1 },
-			lineStyle: { color: '#272D2D', width: 1 }
+			itemStyle: { color: _color2, width: 1 },
+			lineStyle: { color: _color2, width: 1 }
 		},
-		
 		{
 			//performance
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#86BA90', width: 1 },
-			lineStyle: { color: '#86BA90', width: 1 }
+			itemStyle: { color: _color5, width: 1 },
+			lineStyle: { color: _color5, width: 1 }
 		},
-		
 		{
 			//development
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#778DA9', width: 1 },
-			lineStyle: { color: '#778DA9', width: 1 }
+			itemStyle: { color: _color3, width: 1 },
+			lineStyle: { color: _color3, width: 1 }
 		},
 		{
 			//maintenance
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#778DA9', width: 1 },
-			lineStyle: { color: '#778DA9', width: 1, type: 'dashed' }
+			itemStyle: { color: _color3, width: 1 },
+			lineStyle: { color: _color3, width: 1, type: 'dashed' }
 		},
-		
 		{
 			//2D
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#DD7373', width: 1 },
-			lineStyle: { color: '#DD7373', width: 1 }
+			itemStyle: { color: _color4, width: 1 },
+			lineStyle: { color: _color4, width: 1 }
 		},
 		{
 			//3D
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#DD7373', width: 1 },
-			lineStyle: { color: '#DD7373', width: 1, type: 'dashed' }
+			itemStyle: { color: _color4, width: 1 },
+			lineStyle: { color: _color4, width: 1, type: 'dashed' }
 		},
 		{
 			//photography
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			itemStyle: { color: '#DD7373', width: 1 },
-			lineStyle: { color: '#DD7373', width: 1, type: 'dotted' }
+			itemStyle: { color: _color4, width: 1 },
+			lineStyle: { color: _color4, width: 1, type: 'dotted' }
 		},
 	]
 }
+
+//style additions + overrides
+for (let i = 0; i < options.series.length; i++) {
+	options.series[i].type = 'line';
+	options.series[i].symbol = 'circle';
+	options.series[i].smooth = 0.2;
+}
+
+return options;
 
 SELECT
 	substr(strftime('%Y-%m', Date), 3) AS Month,
@@ -427,102 +162,18 @@ ORDER BY Month ASC
 ^task-focus
 
 ```sqlseal
-ADVANCED MODE
-CHART
-
-const seriesItem = {
-	type: 'bar',
-	stack: 'x',
-	itemStyle: { borderRadius: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90,
-			width: 35,
-			overflow: 'truncate',
-			ellipsis: '…'
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-	
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373'],
-	
+CHART {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color1, _color2, _color3, _color4],
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries
 	]
 }
 
@@ -539,102 +190,18 @@ ORDER BY Project ASC
 ^project-time
 
 ```sqlseal
-ADVANCED MODE
-CHART
-
-const seriesItem = {
-	type: 'bar',
-	stack: 'x',
-	itemStyle: { borderRadius: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90,
-			width: 35,
-			overflow: 'truncate',
-			ellipsis: '…'
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-	
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373'],
-	
+CHART {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color1, _color2, _color3, _color4],
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries
 	]
 }
 
@@ -653,40 +220,9 @@ ORDER BY Task ASC
 
 ```sqlseal
 CHART {
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		},
-		itemStyle: { borderWidth: 0 },
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		}
-	},
-
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373'],
-	
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	color: [_color1, _color2, _color3, _color4],
 	series: [
 		{
 			type: 'pie',
@@ -723,20 +259,7 @@ const maximum = Math.max(...formattedData[0]);
 
 return {
 	legend: { show: false },
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		}
-	},
-	
+	tooltip: _crossTooltip,
 	radar: {
 		indicator: [
 			{ name: 'Abstract', max: maximum },
@@ -746,15 +269,17 @@ return {
 		],
 		splitNumber: 4,
 		axisName: {
-			  color: '#DADADA'
+			fontFamily: 'Roboto',
+			fontSize: 12,
+			color: '#646464'
 		},
 		splitLine: {
 			lineStyle: {
 				color: [
-					'#DADADA',
-					'#242424',
-					'#363636',
-					'#646464'
+					_color1,
+					_color1 + 20,
+					_color1 + 60,
+					_color1 + 90,
 				]
 			}
 		},
@@ -763,15 +288,14 @@ return {
 			lineStyle: { color: '#242424', type: 'dashed' }
 		}
 	},
-	
 	series: [
 		{
 			name: 'Hours',
 			type: 'radar',
 			data: formattedData,
 			label: { show: false },
-			itemStyle: { color: '#DADADA' },
-			lineStyle: { color: '#DADADA' }
+			itemStyle: { color: _color1 },
+			lineStyle: { color: _color1 }
 		}
 	]
 }
@@ -787,75 +311,27 @@ ORDER BY Division ASC
 ^division-time
 
 ```sqlseal
-CHART {
-	grid: {
-		show: false,
-		left: 50,
-		right: 50,
-		top: 20,
-		bottom: 50
-	},
-	
-	legend: {
-		show: false,
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		}
-	},
-	
-	xAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-		}
-	},
-	
-	yAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-	
+ADVANCED MODE
+CHART
+
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: { show: false },
+	tooltip: _crossTooltip,
+	xAxis: _cartesianY,
+	yAxis: _cartesianX,
+	color: [_color1],
 	series: [
-		{
-			type: 'bar',
-			itemStyle: { borderRadius: 1, color: '#DADADA' }
-		}
+		_barSeries
 	]
 }
+
+//style additions + overrides
+options.grid.top = 20;
+options.grid.bottom = 40;
+
+return options;
 
 SELECT
 	substr(strftime('%Y', Date), 0) AS Year,
@@ -872,29 +348,15 @@ CHART
 
 return {
 	legend: { show: false },
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		}
-	},
-
-	color: ['#FCB97D', '#DD7373', '#778DA9', '#86BA90'],
-	
+	tooltip: _crossTooltip,
+	color: [_color1, _color2, _color4, _color3], //unsure why order is different
 	series: [
 		{
 			type: 'treemap',
 			name: 'Project Time',
 			//explicitly passing the (already formatted through the query) data 
 			//directly to avoid any automated 'dataset' stuff
-			data: data, 
+			data: data,
 			colorMappingBy: "id",
 			
 			breadcrumb: {
@@ -923,16 +385,16 @@ return {
 			roam: false,
 			zoomToNodeRatio: 0.2,
 			
-			left: 50,
-			top: 50,
-			right: 50,
-			bottom: 50,
+			left: 25,
+			top: 25,
+			right: 25,
+			bottom: 25,
 			
 			label: {
 				show: true,
 				fontFamily: 'Roboto',
 				fontSize: 12,
-				color: '#FFF'
+				color: '#FFFFFF'
 			},
 			itemStyle: { borderColor: '#1E1E1E', gapWidth: 2, borderRadius: 1 }
 		}
@@ -970,47 +432,32 @@ ORDER BY id ASC
 ADVANCED MODE
 CHART
 
+function getColor(division) {
+	switch (division) {
+		case 'Abstract': return _color1;
+		case 'Audio': return _color2;
+		case 'Code': return _color3;
+		case 'Visual': return _color4;
+		default: return _color1;
+	}
+}
+
 //define item style in the data itself so we can have division color-coded days
 const divisionData = data.map(x => {
 	return {
 		value: [x.Date, x.Hours],
-		itemStyle: { color: x.DivisionColor }
+		itemStyle: { color: getColor(x.PrimaryDivision) }
 	}
 });
 
 const hoursData = data.map(x => [x.Date, x.Hours]);
 const year = new Date(divisionData[0].value[0]).getFullYear();
 
-const calendarItemStyle = {
-	color: '#242424',
-	borderColor: `#1E1E1E`,
-	borderWidth: 3,
-	borderCap: 'round',
-	borderJoin: 'round'
-}
-
-return {
-	legend: {
-		show: false,
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		//add color swatch and date to tooltip
-		formatter(params) {
-			return `${params.marker}${params.value[0].substring(5)}<span style="float: right; margin-left: 20px"><b>${params.value[1]}</b></span>`;
-		}
-	},
-	
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: { show: false },
+	tooltip: _crossTooltip,
 	visualMap: {
 		show: false,
 		min: 0,
@@ -1020,60 +467,59 @@ return {
 		precision: 0.1,
 		splitNumber: 4,
 		pieces: [
-			{ min: 0.5, max: 2, color: '#272D2D' },
-			{ min: 2, max: 6, color: '#6E9976' },
-			{ min: 6, max: 9, color: '#374C3B' },
-			{ min: 9, max: 12, color: '#93CC9E' },
+			//colors are overridden in top calendar, so this is unique to the bottom one
+			{ min: 0.5, max: 2, color: _color4 + 20 },
+			{ min: 2, max: 6, color: _color4 + 60 },
+			{ min: 6, max: 9, color: _color4 + 90 },
+			{ min: 9, max: 12, color: _color4 },
 		],
 	},
-	
 	calendar: [
-	{
-		top: 100,
-		left: 50,
-		right: 50,
-		cellSize: [12, 12],
-		range: year,
-		splitLine: { show: false },
-		yearLabel: { show: false },
-		monthLabel: { show: false },
-		itemStyle: calendarItemStyle,
-		monthLabel: {
-			color: '#646464',
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			margin: 10,
-			//write out calendar months in numbers instead of words
-			nameMap: ['01','02','03','04','05','06','07','08','09','10','11','12'],
+		{
+			top: 100,
+			left: 50,
+			right: 50,
+			cellSize: 11.5,
+			range: year,
+			splitLine: { show: false },
+			yearLabel: { show: false },
+			monthLabel: { show: false },
+			itemStyle: _calendarItemStyle,
+			monthLabel: {
+				color: '#646464',
+				fontFamily: 'Roboto',
+				fontSize: 12,
+				margin: 10,
+				//write out calendar months in numbers instead of words
+				nameMap: ['01','02','03','04','05','06','07','08','09','10','11','12'],
+			},
+			dayLabel: {
+				firstDay: 1,
+				color: '#646464',
+				fontFamily: 'Roboto',
+				fontSize: 12,
+				margin: 10
+			}
 		},
-		dayLabel: {
-			firstDay: 1,
-			color: '#646464',
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			margin: 10
+		{
+			top: 200,
+			left: 50,
+			right: 50,
+			cellSize: 11.5,
+			range: year,
+			splitLine: { show: false },
+			yearLabel: { show: false },
+			monthLabel: { show: false },
+			itemStyle: _calendarItemStyle,
+			dayLabel: {
+				firstDay: 1,
+				color: '#646464',
+				fontFamily: 'Roboto',
+				fontSize: 12,
+				margin: 10
+			}
 		}
-	},
-	{
-		top: 200,
-		left: 50,
-		right: 50,
-		cellSize: [12, 12],
-		range: year,
-		splitLine: { show: false },
-		yearLabel: { show: false },
-		monthLabel: { show: false },
-		itemStyle: calendarItemStyle,
-		dayLabel: {
-			firstDay: 1,
-			color: '#646464',
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			margin: 10
-		}
-	}
 	],
-	
 	series: [
 		{
 			type: 'heatmap',
@@ -1092,6 +538,13 @@ return {
 	]
 }
 
+//style additions + overrides
+options.tooltip.formatter = (params) => {
+	return `${params.marker}${params.value[0].substring(5)}<span style="float: right; margin-left: 20px"><b>${params.value[1]}</b></span>`;
+}
+
+return options;
+
 //directly define colors in the query results to avoid mapping them afterwards
 WITH DivisionTotals AS (
 	SELECT
@@ -1108,12 +561,11 @@ SELECT
 	Date,
 	Hours,
 CASE
-	WHEN MAX(Abstract, Audio, Code, Visual) = Abstract THEN '#FCB97D'
-	WHEN MAX(Abstract, Audio, Code, Visual) = Audio THEN '#86BA90'
-	WHEN MAX(Abstract, Audio, Code, Visual) = Code THEN '#778DA9'
-	WHEN MAX(Abstract, Audio, Code, Visual) = Visual THEN '#DD7373'
-	ELSE 'Unknown'
-	END AS DivisionColor
+	WHEN MAX(Abstract, Audio, Code, Visual) = Abstract THEN 'Abstract'
+	WHEN MAX(Abstract, Audio, Code, Visual) = Audio THEN 'Audio'
+	WHEN MAX(Abstract, Audio, Code, Visual) = Code THEN 'Code'
+	WHEN MAX(Abstract, Audio, Code, Visual) = Visual THEN 'Visual'
+	END AS PrimaryDivision
 FROM DivisionTotals
 WHERE Date >= date('now', 'start of year')
 GROUP BY Date
@@ -1137,4 +589,9 @@ ORDER BY Date ASC
 `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(absTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% abstract, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(audTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% audio, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(codTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% code, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(visTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% visual
 ^divisions
 
-
+```sqlseal
+TABLE productivity = file(Productivity.csv)
+GRID
+SELECT * from productivity
+```
+^productivity-table

@@ -1,129 +1,49 @@
 
 ```sqlseal
-TABLE resources = file(Finances.csv)
-
 ADVANCED MODE
 CHART
 
-const seriesItem = {
-	type: 'bar',
-	stack: 'x',
-	itemStyle: { borderRadius: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 55,
-		right: 55,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		},
-		//ensure the added '$' to the front of the value
-		//appears behind a minus '-'
-		valueFormatter: function(value) {
-			if (value >= 0) return '$' + value.toFixed(2);
-			else return '-$' + (value * -1).toFixed(2);
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { 
-			lineStyle: {
-				color: '#646464',
-				type: 'dashed'
-				}
-		},
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			//ensure the added '$' to the front of the value 
-			//appears behind a minus '-'
-			formatter: function(value) {
-				if (value >= 0) return '$' + value.toFixed(0);
-				else return '-$' + (value * -1).toFixed(0);
-			}
-			
-		}
-	},
-	
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373', '#272D2D', '#2B2D42'],
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color3, _color1, _color2, _color4, _color5, _color6],
 	
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
 		{
 			type: 'line',
 			symbol: 'circle',
 			smooth: 0.2,
-			lineStyle: { color: '#646464', type: 'dashed', width: 1 },
-			itemStyle: { color: '#646464' },
+			lineStyle: { color: _neutralColor, type: 'dashed', width: 1 },
+			itemStyle: { color: _neutralColor },
 		}
 	]
 }
+
+//style additions + overrides
+options.tooltip.valueForomatter = (value) => {
+	if (value >= 0) return '$' + value.toFixed(0);
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
+options.yAxis.axisLabel.width = 50;
+options.yAxis.axisLabel.formatter = (value) => {
+	if (value >= 0) return '$' + value.toFixed(0);
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+return options;
 
 SELECT
 	substr(strftime('%Y-%m', Date), 3) AS Month,
@@ -134,7 +54,7 @@ SELECT
 	ROUND(SUM(CASE WHEN Category = 'Government' THEN Difference ELSE 0 END), 2) AS Government,
 	ROUND(SUM(CASE WHEN Category = 'Work' THEN Difference ELSE 0 END), 2) AS Work,
 	ROUND(SUM(Difference), 2) AS Difference
-FROM resources
+FROM finances
 GROUP BY Month
 ORDER BY Month ASC
 ```
@@ -144,125 +64,48 @@ ORDER BY Month ASC
 ADVANCED MODE
 CHART
 
-const seriesItem = {
-	type: 'bar',
-	stack: 'x',
-	itemStyle: { borderRadius: 1 }
-}
-
-return {
-	grid: {
-		show: false,
-		left: 55,
-		right: 55,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		},
-		//ensure the added '$' to the front of the value 
-		//appears behind a minus '-'
-		valueFormatter: function(value) {
-			if (value >= 0) return '$' + value.toFixed(2);
-			else return '-$' + (value * -1).toFixed(2);
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			rotate: 90
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { 
-			lineStyle: {
-				color: '#646464',
-				type: 'dashed'
-				}
-		},
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			//ensure the added '$' to the front of the value 
-			//appears behind a minus '-'
-			formatter: function(value) {
-				if (value >= 0) return '$' + value.toFixed(0);
-				else return '-$' + (value * -1).toFixed(0);
-			}
-			
-		}
-	},
-	
-	color: ['#FCB97D', '#86BA90', '#778DA9', '#DD7373', '#272D2D', '#2B2D42'],
-	
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: [_color3, _color1, _color2, _color4, _color5, _color6],
 	series: [
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
-		seriesItem,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
+		_barSeries,
 		{
 			type: 'line',
 			symbol: 'circle',
 			smooth: 0.2,
-			lineStyle: { color: '#646464', type: 'dashed', width: 1 },
-			itemStyle: { color: '#646464' },
+			lineStyle: { color: _neutralColor, type: 'dashed', width: 1 },
+			itemStyle: { color: _neutralColor },
 		}
 	]
 }
+
+//style additions + overrides
+options.tooltip.valueForomatter = (value) => {
+	if (value >= 0) return '$' + value.toFixed(0);
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+options.xAxis.axisLabel.rotate = '0';
+
+options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
+options.yAxis.axisLabel.width = 50;
+options.yAxis.axisLabel.formatter = (value) => {
+	if (value >= 0) return '$' + value.toFixed(0);
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+return options;
 
 SELECT
 	substr(strftime('%Y-%m', Date), 3) AS Month,
@@ -273,7 +116,7 @@ SELECT
 	ROUND(SUM(CASE WHEN Category = 'Government' THEN Difference ELSE 0 END), 2) AS Government,
 	ROUND(SUM(CASE WHEN Category = 'Work' THEN Difference ELSE 0 END), 2) AS Work,
 	ROUND(SUM(Difference), 2) AS Difference
-FROM resources
+FROM finances
 WHERE Date >= date('now', '-365 days')
 GROUP BY Month
 ORDER BY Month ASC
@@ -281,8 +124,6 @@ ORDER BY Month ASC
 ^local-balance
 
 ```sqlseal
-TABLE budget = file(Budget.csv)
-
 ADVANCED MODE
 CHART
 
@@ -314,25 +155,10 @@ for (let i = 0; i < categories.length; i++) {
 	);
 }
 
-return {
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		valueFormatter: function(value) {
-			return '$' + value;
-		}
-	},
-	
-	color: ['#86BA90', '#FCB97D', '#DD7373', '#778DA9'],
-	
+//options definition
+let options = {
+	tooltip: _crossTooltip,
+	color: [_color1, _color3, _color2, _color4],
 	series: {
 	    type: 'sunburst',
 	    data: formattedData,
@@ -354,6 +180,13 @@ return {
 	}
 }
 
+//style additions + overrides
+options.tooltip.valueFormatter = (value) => {
+	return '$' + value;
+};
+
+return options;
+
 SELECT
 	Source AS Source,
 	Category AS Category,
@@ -367,25 +200,28 @@ ORDER BY Category ASC
 ADVANCED MODE
 CHART
 
-//define category-to-color system,
-//could be made nicer using a library for color modification
+//colors could be made nicer using a library for color modification
+//currently, the budget bars are simply 50% opacity
 function getColor(category, budget=false) {
 	switch (category) {
-		case 'Consumables':
-			if (budget) return '#99A9BE';
-			return '#778DA9';
+		case 'Consumables': 
+			if (budget) return _color4;
+			return _color4 + 80;
 			
 		case 'Desireables':
-			if (budget) return '#E59696';
-			return '#DD7373';
+			if (budget) return _color2;
+			return _color2 + 80;
 		
 		case 'Housing':
-			if (budget) return '#FCCA9D';
-			return '#FCB97d';
+			if (budget) return _color3;
+			return _color3 + 80;
 		
 		case 'Services':
-			if (budget) return '#A4CBAB';
-			return '#86BA90';
+			if (budget) return _color1;
+			return _color1 + 80;
+		
+		default:
+			return _color1;
 	}
 }
 
@@ -409,94 +245,13 @@ const spendingData = data.map(x => {
 	}
 });
 
-return {
-	grid: {
-		show: false,
-		left: 55,
-		right: 55,
-		top: 50,
-		bottom: 50
-	},
-	
-	legend: {
-		show: true,
-		icon: 'circle',
-		itemHeight: 5,
-		itemWidth: 5,
-		inactiveColor: '#363636',
-		left: 18,
-		top: 10,
-		itemGap: 10,
-		padding: 5,
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 0,
-			color: '#646464',
-			lineHeight: 0
-		}
-	},
-	
-	tooltip: {
-		show: true,
-		padding: 5,
-		backgroundColor: '#242424',
-		borderColor: 'transparent',
-		extraCssText: 'box-shadow: none;',
-		textStyle: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#DADADA'
-		},
-		axisPointer: {
-			type: 'cross',
-			snap: true,
-			label: {
-				fontFamily: 'Roboto',
-				fontSize: 12,
-				color: '#DADADA',
-				backgroundColor: '#242424',
-				padding: 5
-			},
-			crossStyle: { color: '#646464' }
-		},
-		valueFormatter: function(value) {
-			return '$' + value.toFixed(2);
-		}
-	},
-	
-	xAxis: {
-		type: 'category',
-		data: categoryData,
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: { show: false },
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464'
-		}
-	},
-	
-	yAxis: {
-		type: 'value',
-		axisLine: { show: false },
-		axisTick: { show: false },
-		splitLine: {
-			lineStyle: {
-				color: '#646464',
-				type: 'dashed'
-				}
-		},
-		axisLabel: {
-			fontFamily: 'Roboto',
-			fontSize: 12,
-			color: '#646464',
-			formatter: function(value, index) {
-				return '$' + value.toFixed(0);
-			}
-		}
-	},
-	
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: _dotLegend,
+	tooltip: _crossTooltip,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
 	series: [
 		{
 			type: 'bar',
@@ -511,6 +266,23 @@ return {
 	]
 }
 
+//style additions + overrides
+options.tooltip.valueFormatter = (value) => {
+	return '$' + value.toFixed(2);
+}
+
+options.xAxis.data = categoryData;
+options.xAxis.axisLabel.rotate = '0';
+options.xAxis.axisLabel.width = 100;
+
+options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
+options.yAxis.axisLabel.formatter = (value) => {
+	return '$' + value.toFixed(0);
+};
+
+return options;
+
 //create 2 subqueries as we are fetching data from 2 tables,
 //and combine them to be processed by our js
 
@@ -524,7 +296,7 @@ FROM (
 	SELECT
 		Category,
 		-ROUND(SUM(Difference) / 3, 2) AS MonthlySpending
-	FROM resources
+	FROM finances
 	WHERE Date >= date('now', '-90 days') AND Category NOT LIKE '%%%Work%%%' AND Category NOT LIKE '%%%Government%%%'
 	GROUP BY Category
 ) spending
@@ -538,5 +310,19 @@ LEFT JOIN (
 ```
 ^budget-and-spending
 
-$`S> SELECT ROUND(AVG(MonthlyTotal), 2) FROM (SELECT substr(strftime('%Y-%m', Date), 3) AS Month, SUM(Difference) AS MonthlyTotal FROM resources WHERE Date >= date('now', '-90 days') GROUP BY Month)` recent difference / month
+$`S> SELECT ROUND(AVG(MonthlyTotal), 2) FROM (SELECT substr(strftime('%Y-%m', Date), 3) AS Month, SUM(Difference) AS MonthlyTotal FROM finances WHERE Date >= date('now', '-90 days') GROUP BY Month)` recent difference / month
 ^recent-difference
+
+```sqlseal
+TABLE finances = file(Finances.csv)
+GRID
+SELECT * from finances
+```
+^finances-table
+
+```sqlseal
+TABLE finances = file(Finances.csv)
+GRID
+SELECT * from finances
+```
+^budget-table
