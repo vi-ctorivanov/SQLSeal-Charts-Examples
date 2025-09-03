@@ -8,6 +8,7 @@ let options = {
 	grid: _standardGrid,
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
+	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
 	color: [_color3, _color1, _color2, _color4, _color5, _color6],
@@ -35,7 +36,7 @@ options.tooltip.valueForomatter = (value) => {
 	else return '-$' + (value * -1).toFixed(0);
 };
 
-options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.show = true;
 options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
 options.yAxis.axisLabel.width = 50;
 options.yAxis.axisLabel.formatter = (value) => {
@@ -95,9 +96,9 @@ options.tooltip.valueForomatter = (value) => {
 	else return '-$' + (value * -1).toFixed(0);
 };
 
-options.xAxis.axisLabel.rotate = '0';
+options.xAxis.axisLabel.rotate = 0;
 
-options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.show = true;
 options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
 options.yAxis.axisLabel.width = 50;
 options.yAxis.axisLabel.formatter = (value) => {
@@ -272,10 +273,10 @@ options.tooltip.valueFormatter = (value) => {
 }
 
 options.xAxis.data = categoryData;
-options.xAxis.axisLabel.rotate = '0';
+options.xAxis.axisLabel.rotate = 0;
 options.xAxis.axisLabel.width = 100;
 
-options.yAxis.splitLine.show = 'true';
+options.yAxis.splitLine.show = true;
 options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
 options.yAxis.axisLabel.formatter = (value) => {
 	return '$' + value.toFixed(0);

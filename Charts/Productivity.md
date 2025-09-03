@@ -4,6 +4,7 @@ CHART {
 	grid: _standardGrid,
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
+	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
 	color: [_color1, _color2, _color3, _color4, _neutralColor],
@@ -67,6 +68,7 @@ let options = {
 	grid: _standardGrid,
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
+	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
 	series: [
@@ -166,6 +168,7 @@ CHART {
 	grid: _standardGrid,
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
+	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
 	color: [_color1, _color2, _color3, _color4],
@@ -357,7 +360,7 @@ return {
 			//explicitly passing the (already formatted through the query) data 
 			//directly to avoid any automated 'dataset' stuff
 			data: data,
-			colorMappingBy: "id",
+			colorMappingBy: 'id',
 			
 			breadcrumb: {
 				show: true,
@@ -401,7 +404,7 @@ return {
 	]
 }
 
-//naming query results based on what treemaps expects (name, value, id)
+//naming query result names based on what treemaps expects (name, value, id)
 WITH DivisionTotals AS (
 	SELECT
 		Project,
@@ -421,7 +424,6 @@ CASE
 	WHEN MAX(Abstract, Audio, Code, Visual) = Audio THEN 'Audio'
 	WHEN MAX(Abstract, Audio, Code, Visual) = Code THEN 'Code'
 	WHEN MAX(Abstract, Audio, Code, Visual) = Visual THEN 'Visual'
-	ELSE 'Unknown'
 	END AS id
 FROM DivisionTotals
 ORDER BY id ASC
@@ -540,12 +542,11 @@ let options = {
 
 //style additions + overrides
 options.tooltip.formatter = (params) => {
-	return `${params.marker}${params.value[0].substring(5)}<span style="float: right; margin-left: 20px"><b>${params.value[1]}</b></span>`;
+	return `${params.marker}${params.value[0].substring(5)}<span style='float: right; margin-left: 20px'><b>${params.value[1]}</b></span>`;
 }
 
 return options;
 
-//directly define colors in the query results to avoid mapping them afterwards
 WITH DivisionTotals AS (
 	SELECT
 		strftime('%Y-%m-%d', Date) AS Date,

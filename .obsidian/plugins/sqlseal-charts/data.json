@@ -13,6 +13,10 @@
       "config": "{\n  \"show\": true,\n  \"padding\": 5,\n  \"backgroundColor\": \"#242424\",\n  \"borderColor\": \"transparent\",\n  \"extraCssText\": \"box-shadow: none;\",\n  \"textStyle\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 12,\n    \"color\": \"#DADADA\"\n  },\n  \"axisPointer\": {\n    \"type\": \"cross\",\n    \"snap\": true,\n    \"crossStyle\": {\n      \"color\": \"#646464\"\n    },\n    \"label\": {\n      \"fontFamily\": \"Roboto\",\n      \"fontSize\": 12,\n      \"color\": \"#DADADA\",\n      \"backgroundColor\": \"#242424\",\n      \"padding\": 5\n    }\n  }\n}"
     },
     {
+      "name": "_dataZoom",
+      "config": "{\n  \"type\": \"inside\",\n  \"filterMode\": \"filter\"\n}"
+    },
+    {
       "name": "_cartesianX",
       "config": "{\n  \"type\": \"category\",\n  \"axisLine\": {\n    \"show\": false\n  },\n  \"axisTick\": {\n    \"show\": false\n  },\n  \"splitLine\": {\n    \"show\": false\n  },\n  \"axisLabel\": {\n    \"fontFamily\": \"Roboto\",\n    \"fontSize\": 12,\n    \"color\": \"#646464\",\n    \"rotate\": 90,\n    \"width\": 35,\n    \"overflow\": \"truncate\",\n    \"ellipsis\": \"…\"\n  }\n}"
     },
