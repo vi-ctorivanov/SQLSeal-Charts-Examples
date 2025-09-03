@@ -238,7 +238,7 @@ CHART {
 }
 
 SELECT
-	Division,
+	Division AS Divison,
 	SUM(Time) AS Time
 FROM productivity
 WHERE Division NOT LIKE '%%%None%%%'
