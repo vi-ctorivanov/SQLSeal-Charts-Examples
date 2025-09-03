@@ -37,7 +37,7 @@ CHART {
 	tooltip: _crossTooltip,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
-	color: [_color1, _color2, _color3, _color4, _neutralColor],
+	color: [_color1, _color2, _color3, _color4],
 	series: [
 		_barSeries,
 		_barSeries,
