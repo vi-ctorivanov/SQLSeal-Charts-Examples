@@ -1,9 +1,101 @@
 
 ```sqlseal
-TABLE health = file(Health.csv)
+TABLE birthdays = file(Birthdays.csv)
 
 ADVANCED MODE
 CHART
+
+let today = new Date();
+today.setHours(0,0,0,0);
+let year = today.getFullYear();
+let birthdayToday = false;
+
+let calendarData = data.map(x => {
+	let d = new Date(year + '-' + x.date);
+	d.setHours(0,0,0,0);
+	let c = _color1;
+	
+	if (today.getTime() == d.getTime()) {
+		c = _color4;
+		birthdayToday = true;
+	}
+
+	return {
+		value: [d, 0, x.person],
+		itemStyle: { color: c }
+	}
+});
+
+//add today
+if (!birthdayToday) {
+	calendarData.push({
+		value: [today, 0, 'Today'],
+		itemStyle: { color: _color2 }
+	});
+}
+
+//options definition
+let options = {
+	grid: _standardGrid,
+	legend: { show: false },
+	tooltip: _crossTooltip,
+	visualMap: { show: false },
+	calendar: [
+		{
+			top: 160,
+			left: 50,
+			right: 50,
+			cellSize: 11.5,
+			range: year,
+			splitLine: { show: false },
+			yearLabel: { show: false },
+			monthLabel: { show: false },
+			itemStyle: _calendarItemStyle,
+			monthLabel: {
+				color: '#646464',
+				fontFamily: 'Roboto',
+				fontSize: 12,
+				margin: 10,
+				//write out calendar months in numbers instead of words
+				nameMap: ['01','02','03','04','05','06','07','08','09','10','11','12'],
+			},
+			dayLabel: {
+				firstDay: 1,
+				color: '#646464',
+				fontFamily: 'Roboto',
+				fontSize: 12,
+				margin: 10
+			}
+		}
+	],
+	series: [
+		{
+			type: 'heatmap',
+			coordinateSystem: 'calendar',
+			data: calendarData,
+			itemStyle: { borderRadius: 2 }
+		}
+	]
+}
+
+//style additions + overrides
+options.tooltip.formatter = (params) => {
+	const d = (params.value[0].getMonth() + 1).toString().padStart(2, '0') + '-' + params.value[0].getDate().toString().padStart(2, '0');
+
+	return `${params.marker}${d}<span style='float: right; margin-left: 20px'><b>${params.value[2]}</b></span>`;
+}
+
+return options;
+
+SELECT * FROM birthdays
+```
+^birthdays
+
+```sqlseal
+ADVANCED MODE
+CHART
+
+let day = 3600 * 24 * 1000;
 
 //options definition
 let options = {
@@ -22,13 +114,26 @@ let options = {
 //style additions + overrides
 options.tooltip.formatter = (params) => {
 	return `${params.value.Date}</br>${params.marker}${params.value.issue}<span style='float: right; margin-left: 20px'><b>${params.value.severity}</b></span>`;
+};
+
+//format axis pointer label to avoid showing data more granular than a single day
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'x') {
+		let d = new Date(params.value);
+		return d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
+	} else {
+		return params.value.toFixed(2);
+	}
 }
 
 options.xAxis.type = 'time';
+options.xAxis.minInterval = day;
 options.xAxis.axisLabel.rotate = 0;
 
 options.yAxis.min = 0;
 options.yAxis.max = 1;
+
+options.dataZoom.minValueSpan = day * 7;
 
 return options;
 
@@ -36,7 +141,7 @@ return options;
 WITH Dates(date) AS (
   SELECT date('2024-01-01')
   UNION ALL
-  SELECT date(date, '+1 day') 
+  SELECT date(date, '+1 day')
   FROM Dates
   WHERE date < CURRENT_DATE
 )
