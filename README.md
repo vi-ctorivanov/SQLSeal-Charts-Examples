@@ -29,11 +29,13 @@ I hope you find this example vault helpful!
 
 ## Notes
 
-This vault has last been validated as working on: `September 18th, 2025`.
+This vault has last been validated as working on: `September 22nd, 2025`.
 Updates past this date may affect its intended performance or functionality.
 
 The values in the `.csv` files are random and for demonstration purposes only.
 
 Global configuration variables for charts are always prefixed with `_` for better readability.
+
+The SQLite queries are not made to account for missing dates. For accurate rendering in cases of missing dates, include some sort of null entry in time-based charts.
 
 You are free to copy, reproduce, and use any of the code provided in this project as your own, without any need for credits or attribution.
