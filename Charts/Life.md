@@ -76,14 +76,14 @@ let options = {
 			itemStyle: { borderRadius: 2 }
 		}
 	]
-}
+};
 
 //style additions + overrides
 options.tooltip.formatter = (params) => {
 	const d = (params.value[0].getMonth() + 1).toString().padStart(2, '0') + '-' + params.value[0].getDate().toString().padStart(2, '0');
 
 	return `${params.marker}${d}<span style='float: right; margin-left: 20px'><b>${params.value[2]}</b></span>`;
-}
+};
 
 return options;
 
@@ -105,11 +105,9 @@ let options = {
 	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
-	color: [_color1, _color2, _color3, _color4, _neutralColor],
-	series: [
-		_lineSeries
-	]
-}
+	color: _color1,
+	series: _lineSeries
+};
 
 //style additions + overrides
 options.tooltip.formatter = (params) => {
@@ -124,7 +122,7 @@ options.tooltip.axisPointer.label.formatter = (params) => {
 	} else {
 		return params.value.toFixed(2);
 	}
-}
+};
 
 options.xAxis.type = 'time';
 options.xAxis.minInterval = day;
@@ -139,11 +137,11 @@ return options;
 
 //define chart start date here
 WITH Dates(date) AS (
-  SELECT date('2024-01-01')
-  UNION ALL
-  SELECT date(date, '+1 day')
-  FROM Dates
-  WHERE date < CURRENT_DATE
+	SELECT date('2024-01-01')
+	UNION ALL
+	SELECT date(date, '+1 day')
+	FROM Dates
+	WHERE date < CURRENT_DATE
 )
 SELECT
 	d.date AS Date,
@@ -233,12 +231,12 @@ let options = {
 			}
 		}
 	]
-}
+};
 
 //style additions + overrides
 options.tooltip.formatter = (params) => {
 	return `${params.marker}${params.value[0]}-${params.value[1]}`;
-}
+};
 
 return options;
 

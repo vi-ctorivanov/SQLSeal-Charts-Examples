@@ -8,7 +8,7 @@ This vault focuses on precisely that pipeline, and includes:
 - A template for financial tracking - [[Finances.csv]] + [[Budget.csv]]
 - A template for health tracking - [[Health.csv]]
 - 10 productivity charts - [[Productivity]]
-- 4 finance charts - [[Finances]]
+- 5 finance charts - [[Finances]]
 - 3 general life charts - [[Life]]
 - Example inline queries summarizing tracked data - [[Productivity]] + [[Finances]]
 - An example of embedding charts into other files for improved organization - [[Embedding]]
@@ -31,8 +31,6 @@ I hope you find this example vault helpful!
 
 This vault has last been validated as working on: `September 18th, 2025`.
 Updates past this date may affect its intended performance or functionality.
-
-Some queries use the `now` keyword and a limited timeframe, resulting in graphs that may appear empty or sparsely populated due to no new longs being added.
 
 The values in the `.csv` files are random and for demonstration purposes only.
 

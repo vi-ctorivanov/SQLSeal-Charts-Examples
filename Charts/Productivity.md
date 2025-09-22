@@ -53,7 +53,7 @@ SELECT
 	SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS Code,
 	SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS Visual
 FROM productivity
-WHERE Date >= date('now', '-90 days')
+WHERE Date >= date((SELECT MAX(Date) FROM productivity), '-90 days')
 GROUP BY Date
 ORDER BY Date ASC
 ```
@@ -128,7 +128,7 @@ let options = {
 			lineStyle: { color: _color4, width: 1, type: 'dotted' }
 		},
 	]
-}
+};
 
 //style additions + overrides
 for (let i = 0; i < options.series.length; i++) {
@@ -226,18 +226,16 @@ CHART {
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
 	color: [_color1, _color2, _color3, _color4],
-	series: [
-		{
-			type: 'pie',
-			label: { show: false },
-			radius: ['60%', '80%'],
-			itemStyle: {
-				borderRadius: 3,
-				borderColor: '#1E1E1E',
-				borderWidth: 4
-			},
-		}
-	]
+	series: {
+		type: 'pie',
+		label: { show: false },
+		radius: ['60%', '80%'],
+		itemStyle: {
+			borderRadius: 3,
+			borderColor: '#1E1E1E',
+			borderWidth: 4
+		},
+	}
 }
 
 SELECT
@@ -291,17 +289,15 @@ return {
 			lineStyle: { color: '#242424', type: 'dashed' }
 		}
 	},
-	series: [
-		{
-			name: 'Hours',
-			type: 'radar',
-			data: formattedData,
-			label: { show: false },
-			itemStyle: { color: _color1 },
-			lineStyle: { color: _color1 }
-		}
-	]
-}
+	series: {
+		name: 'Hours',
+		type: 'radar',
+		data: formattedData,
+		label: { show: false },
+		itemStyle: { color: _color1 },
+		lineStyle: { color: _color1 }
+	}
+};
 
 SELECT
 	SUM(Time) AS value,
@@ -324,11 +320,9 @@ let options = {
 	tooltip: _crossTooltip,
 	xAxis: _cartesianY,
 	yAxis: _cartesianX,
-	color: [_color1],
-	series: [
-		_barSeries
-	]
-}
+	color: _color1,
+	series: _barSeries
+};
 
 //style additions + overrides
 options.grid.top = 20;
@@ -402,7 +396,7 @@ return {
 			itemStyle: { borderColor: '#1E1E1E', gapWidth: 2, borderRadius: 1 }
 		}
 	]
-}
+};
 
 //naming query result names based on what treemaps expects (name, value, id)
 WITH DivisionTotals AS (
@@ -538,12 +532,12 @@ let options = {
 			itemStyle: { borderRadius: 2 }
 		}
 	]
-}
+};
 
 //style additions + overrides
 options.tooltip.formatter = (params) => {
 	return `${params.marker}${params.value[0].substring(5)}<span style='float: right; margin-left: 20px'><b>${params.value[1]}</b></span>`;
-}
+};
 
 return options;
 
@@ -568,7 +562,7 @@ CASE
 	WHEN MAX(Abstract, Audio, Code, Visual) = Visual THEN 'Visual'
 	END AS PrimaryDivision
 FROM DivisionTotals
-WHERE Date >= date('now', 'start of year')
+WHERE Date >= date((SELECT MAX(Date) FROM productivity), 'start of year')
 GROUP BY Date
 ORDER BY Date ASC
 ```
@@ -581,10 +575,10 @@ ORDER BY Date ASC
 
 `S> SELECT ROUND(CAST(COUNT(*) AS FLOAT) / COUNT(DISTINCT(Date)), 2) FROM productivity` logs / day
 `S> SELECT ROUND(AVG(DailyTotal), 2) FROM (SELECT Date, SUM(Time) AS DailyTotal FROM productivity GROUP BY Date)` hours / day
-`S> WITH RecentDays AS (SELECT Date, SUM(Time) AS Days FROM productivity WHERE Date >= date('now', '-90 days') GROUP BY Date), AllDays AS (SELECT Date, SUM(Time) AS Days FROM productivity GROUP BY Date) SELECT ROUND((SELECT AVG(Days) FROM RecentDays) - (SELECT AVG(Days) FROM AllDays), 2)` hours / day trend
+`S> WITH RecentDays AS (SELECT Date, SUM(Time) AS Days FROM productivity WHERE Date >= date((SELECT MAX(Date) FROM productivity), '-90 days') GROUP BY Date), AllDays AS (SELECT Date, SUM(Time) AS Days FROM productivity GROUP BY Date) SELECT ROUND((SELECT AVG(Days) FROM RecentDays) - (SELECT AVG(Days) FROM AllDays), 2)` hours / day trend
 ^trend
 
-`S> SELECT SUM(Time) FROM productivity WHERE Date >= date('now', 'start of year')` hours this year
+`S> SELECT SUM(Time) FROM productivity WHERE Date >= date((SELECT MAX(Date) FROM productivity), 'start of year')` hours this year
 ^year
 
 `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(absTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% abstract, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(audTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% audio, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(codTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% code, `S> WITH DivisionTotals AS (SELECT SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS absTime, SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS audTime, SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS codTime, SUM(CASE WHEN Division = 'Visual' THEN Time ELSE 0 END) AS visTime FROM productivity) SELECT ROUND(CAST(visTime AS FLOAT) / (absTime + audTime + codTime + visTime) * 100) FROM DivisionTotals`% visual

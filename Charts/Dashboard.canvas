@@ -10,15 +10,16 @@
 		{"id":"ada73683da9f639f","type":"text","text":"![[Finances#^budget-and-spending]]","x":1880,"y":1120,"width":1000,"height":560},
 		{"id":"9c39122c96b33601","type":"text","text":"![[Finances#^local-balance]]","x":2900,"y":1120,"width":1000,"height":560},
 		{"id":"8aaf72b0b2890c05","type":"text","text":"![[Finances#^budget]]","x":1880,"y":1700,"width":1000,"height":560},
-		{"id":"8ed500f7fbeece27","type":"text","text":"![[Finances#^recent-difference]]","x":2900,"y":1700,"width":1000,"height":560},
 		{"id":"e48e4c3ade10f6ac","type":"text","text":"![[Productivity#^project-treemap]]","x":-1180,"y":2280,"width":1000,"height":560},
 		{"id":"d17570e2745a5472","type":"text","text":"![[Productivity#^total-time]]","x":-1180,"y":2860,"width":1000,"height":560},
 		{"id":"183a6b97a6dda927","type":"text","text":"![[Productivity#^daily-heatmap]]","x":-1180,"y":3440,"width":800,"height":440},
 		{"id":"37c0e071be411965","type":"text","text":"![[Productivity#^project-time]]","x":-160,"y":2280,"width":2020,"height":1140},
-		{"id":"f49a1a90e35c5121","type":"text","text":"![[Life#^health]]","x":1880,"y":2280,"width":1000,"height":560},
 		{"id":"f22e1cace4d7e732","type":"text","text":"![[Life#^life-clock]]","x":1880,"y":2860,"width":1000,"height":560},
 		{"id":"63277944e18f8e5a","type":"text","text":"![[Productivity#^counts]]\n![[Productivity#^trend]]\n![[Productivity#^year]]\n![[Productivity#^divisions]]","x":-360,"y":3440,"width":1400,"height":440},
-		{"id":"bf3dfac936a0cb17","type":"text","text":"![[Life#^birthdays]]","x":1060,"y":3440,"width":800,"height":440}
+		{"id":"bf3dfac936a0cb17","type":"text","text":"![[Life#^birthdays]]","x":1060,"y":3440,"width":800,"height":440},
+		{"id":"8ed500f7fbeece27","type":"text","text":"![[Finances#^recent-difference]]\n![[Finances#^total-net]]","x":1880,"y":2280,"width":2020,"height":560},
+		{"id":"f49a1a90e35c5121","type":"text","text":"![[Life#^health]]","x":2900,"y":2860,"width":1000,"height":560},
+		{"id":"c6d8e8d21a9cb5f0","type":"text","text":"![[Finances#^net]]","x":2900,"y":1700,"width":1000,"height":560}
 	],
 	"edges":[]
 }

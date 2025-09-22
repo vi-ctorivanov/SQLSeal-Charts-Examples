@@ -11,8 +11,7 @@ let options = {
 	dataZoom: _dataZoom,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
-	color: [_color3, _color1, _color2, _color4, _color5, _color6],
-	
+	color: [_color3, _color1, _color2, _color4, _color5, _color6, _neutralColor],
 	series: [
 		_barSeries,
 		_barSeries,
@@ -20,29 +19,41 @@ let options = {
 		_barSeries,
 		_barSeries,
 		_barSeries,
-		{
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			lineStyle: { color: _neutralColor, type: 'dashed', width: 1 },
-			itemStyle: { color: _neutralColor },
-		}
+		_lineSeries
 	]
-}
+};
 
 //style additions + overrides
-options.tooltip.valueForomatter = (value) => {
+options.tooltip.valueFormatter = (value) => {
 	if (value >= 0) return '$' + value.toFixed(0);
 	else return '-$' + (value * -1).toFixed(0);
+};
+
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'x') return params.value;
+	else if (params.value >= 0) return '$' + params.value.toFixed(0);
+	else return '-$' + Math.abs(params.value.toFixed(0));
+	return params;
 };
 
 options.yAxis.splitLine.show = true;
 options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
 options.yAxis.axisLabel.width = 50;
 options.yAxis.axisLabel.formatter = (value) => {
-	if (value >= 0) return '$' + value.toFixed(0);
+	let k = false;
+	let pos = false;
+	if (Math.abs(value) > 1000) k = true;
+	if (value >= 0) pos = true;
+	
+	if (pos) {
+		if (k) return '$' + (value / 1000).toFixed(0) + 'k';
+		return '$' + value.toFixed(0);
+	}
+	else if (k) return '-$' + ((value * -1) / 1000).toFixed(0) + 'k';
 	else return '-$' + (value * -1).toFixed(0);
 };
+
+options.series[6].lineStyle.type = 'dashed';
 
 return options;
 
@@ -72,7 +83,7 @@ let options = {
 	tooltip: _crossTooltip,
 	xAxis: _cartesianX,
 	yAxis: _cartesianY,
-	color: [_color3, _color1, _color2, _color4, _color5, _color6],
+	color: [_color3, _color1, _color2, _color4, _color5, _color6, _neutralColor],
 	series: [
 		_barSeries,
 		_barSeries,
@@ -80,20 +91,21 @@ let options = {
 		_barSeries,
 		_barSeries,
 		_barSeries,
-		{
-			type: 'line',
-			symbol: 'circle',
-			smooth: 0.2,
-			lineStyle: { color: _neutralColor, type: 'dashed', width: 1 },
-			itemStyle: { color: _neutralColor },
-		}
+		_lineSeries
 	]
-}
+};
 
 //style additions + overrides
-options.tooltip.valueForomatter = (value) => {
+options.tooltip.valueFormatter = (value) => {
 	if (value >= 0) return '$' + value.toFixed(0);
 	else return '-$' + (value * -1).toFixed(0);
+};
+
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'x') return params.value;
+	else if (params.value >= 0) return '$' + params.value.toFixed(0);
+	else return '-$' + Math.abs(params.value.toFixed(0));
+	return params;
 };
 
 options.xAxis.axisLabel.rotate = 0;
@@ -102,9 +114,20 @@ options.yAxis.splitLine.show = true;
 options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
 options.yAxis.axisLabel.width = 50;
 options.yAxis.axisLabel.formatter = (value) => {
-	if (value >= 0) return '$' + value.toFixed(0);
+	let k = false;
+	let pos = false;
+	if (Math.abs(value) > 1000) k = true;
+	if (value >= 0) pos = true;
+	
+	if (pos) {
+		if (k) return '$' + (value / 1000).toFixed(0) + 'k';
+		return '$' + value.toFixed(0);
+	}
+	else if (k) return '-$' + ((value * -1) / 1000).toFixed(0) + 'k';
 	else return '-$' + (value * -1).toFixed(0);
 };
+
+options.series[6].lineStyle.type = 'dashed';
 
 return options;
 
@@ -118,11 +141,76 @@ SELECT
 	ROUND(SUM(CASE WHEN Category = 'Work' THEN Difference ELSE 0 END), 2) AS Work,
 	ROUND(SUM(Difference), 2) AS Difference
 FROM finances
-WHERE Date >= date('now', '-365 days')
+WHERE Date >= date((SELECT MAX(Date) FROM finances), '-365 days')
 GROUP BY Month
 ORDER BY Month ASC
 ```
 ^local-balance
+
+```sqlseal
+ADVANCED MODE
+CHART
+
+//options definition
+let options = {
+	grid: _standardGrid,
+	tooltip: _crossTooltip,
+	dataZoom: _dataZoom,
+	xAxis: _cartesianX,
+	yAxis: _cartesianY,
+	color: _color1,
+	series: _lineSeries
+};
+
+//style additions + overrides
+options.tooltip.valueFormatter = (value) => {
+	if (value >= 0) return '$' + value.toFixed(0);
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'x') return params.value;
+	else if (params.value >= 0) return '$' + params.value.toFixed(0);
+	else return '-$' + Math.abs(params.value.toFixed(0));
+	return params;
+};
+
+options.xAxis.axisLabel.show = false;
+
+options.yAxis.splitLine.show = true;
+options.yAxis.splitLine.lineStyle = { color: '#646464', type: 'dashed' };
+options.yAxis.axisLabel.width = 50;
+options.yAxis.axisLabel.formatter = (value) => {
+	let k = false;
+	let pos = false;
+	if (Math.abs(value) > 1000) k = true;
+	if (value >= 0) pos = true;
+	
+	if (pos) {
+		if (k) return '$' + (value / 1000).toFixed(0) + 'k';
+		return '$' + value.toFixed(0);
+	}
+	else if (k) return '-$' + ((value * -1) / 1000).toFixed(0) + 'k';
+	else return '-$' + (value * -1).toFixed(0);
+};
+
+return options;
+
+//to create a running sum by month, first organize the data into a table of summed differences per month
+WITH Months AS (
+	SELECT
+		substr(strftime('%Y-%m', Date), 3) AS Month,
+		SUM(Difference) AS Difference
+	FROM finances
+	GROUP BY Month
+)
+SELECT
+	Month,
+	ROUND(SUM(Difference) OVER (ORDER BY Month), 2) AS Net
+FROM Months
+GROUP BY Month
+```
+^net
 
 ```sqlseal
 ADVANCED MODE
@@ -179,7 +267,7 @@ let options = {
 		    borderRadius: 3
 	    }
 	}
-}
+};
 
 //style additions + overrides
 options.tooltip.valueFormatter = (value) => {
@@ -298,7 +386,9 @@ FROM (
 		Category,
 		-ROUND(SUM(Difference) / 3, 2) AS MonthlySpending
 	FROM finances
-	WHERE Date >= date('now', '-90 days') AND Category NOT LIKE '%%%Work%%%' AND Category NOT LIKE '%%%Government%%%'
+	WHERE Date >= date((SELECT MAX(Date) FROM finances), '-90 days')
+		AND Category NOT LIKE '%%%Work%%%'
+		AND Category NOT LIKE '%%%Government%%%'
 	GROUP BY Category
 ) spending
 LEFT JOIN (
@@ -311,8 +401,11 @@ LEFT JOIN (
 ```
 ^budget-and-spending
 
-$`S> SELECT ROUND(AVG(MonthlyTotal), 2) FROM (SELECT substr(strftime('%Y-%m', Date), 3) AS Month, SUM(Difference) AS MonthlyTotal FROM finances WHERE Date >= date('now', '-90 days') GROUP BY Month)` recent difference / month
+$`S> SELECT ROUND(AVG(MonthlyTotal), 2) FROM (SELECT substr(strftime('%Y-%m', Date), 3) AS Month, SUM(Difference) AS MonthlyTotal FROM finances WHERE Date >= date((SELECT MAX(Date) FROM finances), '-90 days') GROUP BY Month)` recent difference / month
 ^recent-difference
+
+$`S>SELECT ROUND(SUM(Difference), 2) FROM finances` net
+^total-net
 
 ```sqlseal
 TABLE finances = file(Finances.csv)
