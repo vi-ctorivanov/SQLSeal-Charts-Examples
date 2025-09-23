@@ -33,7 +33,6 @@ options.tooltip.axisPointer.label.formatter = (params) => {
 	if (params.axisDimension == 'x') return params.value;
 	else if (params.value >= 0) return '$' + params.value.toFixed(0);
 	else return '-$' + Math.abs(params.value.toFixed(0));
-	return params;
 };
 
 options.yAxis.splitLine.show = true;
@@ -105,7 +104,6 @@ options.tooltip.axisPointer.label.formatter = (params) => {
 	if (params.axisDimension == 'x') return params.value;
 	else if (params.value >= 0) return '$' + params.value.toFixed(0);
 	else return '-$' + Math.abs(params.value.toFixed(0));
-	return params;
 };
 
 options.xAxis.axisLabel.rotate = 0;
@@ -353,12 +351,17 @@ let options = {
 			itemStyle: { borderRadius: 1 }
 		}
 	]
-}
+};
 
 //style additions + overrides
 options.tooltip.valueFormatter = (value) => {
 	return '$' + value.toFixed(2);
-}
+};
+
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'x') return params.value;
+	else return '$' + params.value.toFixed(0);
+};
 
 options.xAxis.data = categoryData;
 options.xAxis.axisLabel.rotate = 0;
