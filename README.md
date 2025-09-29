@@ -29,7 +29,7 @@ I hope you find this example vault helpful!
 
 ## Notes
 
-This vault has last been validated as working on: `September 22nd, 2025`.
+This vault has last been validated as working on: `September 29th, 2025`.
 Updates past this date may affect its intended performance or functionality.
 
 The values in the `.csv` files are random and for demonstration purposes only.
