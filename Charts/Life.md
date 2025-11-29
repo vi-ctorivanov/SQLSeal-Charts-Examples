@@ -1,17 +1,18 @@
 
 ```sqlseal
-TABLE birthdays = file(Birthdays.csv)
-
 ADVANCED MODE
 CHART
 
+const timezone = 'EST';
 let today = new Date();
 today.setHours(0,0,0,0);
 let year = today.getFullYear();
 let birthdayToday = false;
 
 let calendarData = data.map(x => {
-	let d = new Date(year + '-' + x.date);
+	let month = parseInt(x.date.split('-')[0]);
+	let day = parseInt(x.date.split('-')[1]);
+	let d = new Date(`${year}-${month}-${day}${timezone}`);
 	d.setHours(0,0,0,0);
 	let c = _color1;
 	
@@ -251,3 +252,10 @@ GRID
 SELECT * from health
 ```
 ^health-table
+
+```sqlseal
+TABLE birthdays = file(Birthdays.csv)
+GRID
+SELECT * from birthdays
+```
+^birthdays-table

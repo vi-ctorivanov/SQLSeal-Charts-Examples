@@ -447,7 +447,7 @@ const divisionData = data.map(x => {
 });
 
 const hoursData = data.map(x => [x.Date, x.Hours]);
-const year = new Date(divisionData[0].value[0]).getFullYear();
+const year = new Date(divisionData[0].value[0] + 'T00:00:00').getFullYear();
 
 //options definition
 let options = {
