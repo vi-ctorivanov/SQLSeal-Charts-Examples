@@ -31,7 +31,12 @@ ORDER BY Month ASC
 ^productivity
 
 ```sqlseal
-CHART {
+
+ADVANCED MODE
+CHART
+
+//options definition
+let options = {
 	grid: _standardGrid,
 	legend: _dotLegend,
 	tooltip: _crossTooltip,
@@ -46,8 +51,20 @@ CHART {
 	]
 }
 
+//style additions + overrides
+options.xAxis.axisLabel.formatter = (value) => {
+	return value.substring(5);
+}
+
+options.tooltip.axisPointer.label.formatter = (params) => {
+	if (params.axisDimension == 'y') return parseInt(params.value);
+	else return params.value.substring(5);
+};
+
+return options;
+
 SELECT
-	strftime('%m-%d', Date) AS Date,
+	strftime('%Y-%m-%d', Date) AS Date,
 	SUM(CASE WHEN Division = 'Abstract' THEN Time ELSE 0 END) AS Abstract,
 	SUM(CASE WHEN Division = 'Audio' THEN Time ELSE 0 END) AS Audio,
 	SUM(CASE WHEN Division = 'Code' THEN Time ELSE 0 END) AS Code,
