@@ -474,7 +474,7 @@ let options = {
 	visualMap: {
 		show: false,
 		min: 0,
-		max: 12,
+		max: 24,
 		type: 'piecewise',
 		orient: 'horizontal',
 		precision: 0.1,
@@ -484,7 +484,7 @@ let options = {
 			{ min: 0.5, max: 2, color: _color4 + 20 },
 			{ min: 2, max: 6, color: _color4 + 60 },
 			{ min: 6, max: 9, color: _color4 + 90 },
-			{ min: 9, max: 12, color: _color4 },
+			{ min: 9, max: 24, color: _color4 },
 		],
 	},
 	calendar: [
